@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
   <head>
-    <title>APP-NAME: A Coding Project by Michael Cerrone</title>
+    <title>HUNDO: A Coding Project by Michael Cerrone</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -31,6 +31,12 @@
       src="https://kit.fontawesome.com/5db21ba9c6.js"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Google Fonts for Racing Sans One -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet">
+
   </head>
 
   <body class="d-flex flex-column h-100">
@@ -38,14 +44,14 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
       <div class="container-fluid">
         <!-- REPLACE THIS APP-NAME FAVICON -->
-        <a class="navbar-brand" href="#"
+        <a class="navbar-brand logoFont" href="#"
           ><img
             src="img/construction-icon.png"
             class="d-inline-block align-text-top"
             alt="Turd Logo"
             width="24"
           />
-          APP-NAME</a
+          HUNDO</a
         >
         <button
           class="navbar-toggler"
@@ -72,7 +78,7 @@
               <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" target="_blank" href="#">Git Repo</a>
+              <a class="nav-link" target="_blank" href="https://github.com/cerronem1">Git Repo</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="#">About</a>
@@ -85,22 +91,79 @@
     <!-- MAIN Section -->
     <main class="flex-shrink-0">
       <div class="container py-5 px-5 mt-5">
-        <h2 class="border-1 border-bottom border-dark">The Code for APP NAME</h2>
+        <h2 class="border-1 border-bottom border-dark">The Code for Hundo</h2>
         <div class="row row-cols-1 row-cols-lg-2">
           <div class="col-lg-8">
           <pre class="line-numbers">
             <code class="language-javascript">
-              // Call HelloWorld function
-              function HelloWorld() {
-                alert("Hello World!");
+
+              // Get the values from the page
+              // This is a "Controller Function". It triggers the logic functions.
+              function getValues() {
+                // Get values
+                let startValue = document.getElementById("startValue").value;
+                let endValue = document.getElementById("endValue").value;
+              
+                // Must first validate user input
+                // Attempt to convert strings to intergers
+                startValue = parseInt(startValue);
+                endValue = parseInt(endValue);
+              
+                if (Number.isInteger(startValue) && Number.isInteger(endValue)) {
+                  // call generateNums()
+                  let valueNums = generateNums(startValue, endValue);
+                  // call displayNums()
+                  displayNums(valueNums);
+                } else {
+                  alert("Please enter a number.");
+                }
+              }
+              
+              // Generate numbers from startValue to endValue
+              // This is a "Logic Function". It does the work the controller triggers.
+              function generateNums(startVals, endVals) {
+                let genNums = [];
+              
+                // Get all numbers from start to end
+                for (let index = startVals; index <= endVals; index++) {
+                  // Whatever code is in here will execute in a loop until the condition above is met.
+                  genNums.push(index);    
+                }
+                return genNums;
+              }
+              
+              // Display numbers and mark even numbers BOLD
+              // This is a "Display Function" or "View Function". It prints the results of the logic function(s) for the user to see.
+              function displayNums(dispNums) {
+                let templateRows = "";
+              
+                for (let index = 0; index < dispNums.length; index++) {
+                  let className = "even";
+                  let dispNum = dispNums[index];
+              
+                  if (dispNum % 2 == 0) {
+                    className = "even";
+                  } else {
+                    className = "odd";
+                  }
+
+                  // NOTE: Template literals do not display with syntax highlighting when using Prism.
+                  templateRows += `<tr><td class="${className}">${dispNum}</td></tr>`;
+                }
+              
+                document.getElementById("results").innerHTML = templateRows;
               }
             </code>
           </pre>
           </div>
           <div class="col-lg-4">
-            <p>The code is structured in one function.</p>
-            <h5>Hello World!</h5>
-            <p>HelloWorld() is a function the displays an alert with  a message of "Hello World"</p>
+            <p>The code is structured using the following functions.</p>
+            <h5>getValues()</h5>
+            <p>Description</p>
+            <h5>generateNums()</h5>
+            <p>Description</p>
+            <h5>displayNums()</h5>
+            <p>Description</p>
           </div>
         </div>
       </div>
